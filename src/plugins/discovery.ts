@@ -151,6 +151,14 @@ function discoverInDirectory(params: {
           });
           continue;
         }
+        if (!fs.existsSync(resolved)) {
+          params.diagnostics.push({
+            level: "warn",
+            message: `openclaw.extensions entry not found: ${extPath}`,
+            source: fullPath,
+          });
+          continue;
+        }
         if (!isPathInsideWithRealpath(fullPath, resolved, { requireRealpath: true })) {
           params.diagnostics.push({
             level: "error",
